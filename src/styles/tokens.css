@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  /* Colors */
+  --color-earth: #1A1A1A;
+  --color-stone: #F5F2ED;
+  --color-glacier: #C9D4D0;
+  --color-river: #2D5F52;
+  --color-rust: #B5490A;
+  --color-sky: #8FB3C0;
+  --color-white: #FFFFFF;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  /* Type Scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 28px;
+  --text-2xl: 40px;
+  --text-3xl: 64px;
+
+  --leading-xs: 1.4;
+  --leading-sm: 1.5;
+  --leading-base: 1.6;
+  --leading-lg: 1.4;
+  --leading-xl: 1.2;
+  --leading-2xl: 1.1;
+  --leading-3xl: 1.0;
+
+  /* Spacing */
+  --section-padding-desktop: 80px;
+  --section-padding-mobile: 48px;
+  --max-width: 1200px;
+  --gutter: 24px;
+
+  /* Border radius */
+  --radius: 2px;
+}

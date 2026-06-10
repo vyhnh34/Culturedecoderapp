@@ -1,0 +1,24 @@
+/* App-level overrides — all component styles live in index.css or inline */
+
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+  .grid-2-col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .tension-3col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Depth indicator hidden on tablet/mobile */
+@media (max-width: 1024px) {
+  .depth-indicator {
+    display: none !important;
+  }
+}

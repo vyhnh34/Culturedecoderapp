@@ -1,0 +1,38 @@
+export const tensionCards = [
+  {
+    id: 'employee-care',
+    title: 'Employee Care vs. Operational Efficiency',
+    says: 'We are here because of our people.',
+    does: '90 employees notified by text, 30 minutes before a town hall, chat disabled, given 72 hours to relocate or be laid off.',
+    signals: 'Economic pressure is beginning to override cultural norms. Tacit assumptions are being stress-tested in public.',
+    gap: 82,
+    source: 'Fast Company / Fortune, June 2024',
+  },
+  {
+    id: 'anti-consumerism',
+    title: 'Anti-Consumerism vs. Growth Imperative',
+    says: '"Don\'t Buy This Jacket" (2011). "We\'re in business to save the planet."',
+    does: 'Continues expanding product lines, opening new markets, scaling global production.',
+    signals: '"Paradox monetized" — growth continues while the brand performs self-awareness about it.',
+    gap: 68,
+    source: 'NYT 2011, Patagonia.com',
+  },
+  {
+    id: 'transparency',
+    title: 'Transparency vs. Greenwashing Gap',
+    says: 'Avoids the word "sustainable" because "we recognize we are part of the problem."',
+    does: 'GHG emissions up 25% since 2017 baseline. Scored C on worker empowerment (2021 Ethical Fashion Report).',
+    signals: 'Honest self-reporting is real — but the gap between reporting and improving is widening.',
+    gap: 55,
+    source: 'Progress Report 2025, Ethical Fashion Report 2021',
+  },
+  {
+    id: 'communal-drift',
+    title: 'Communal Culture vs. Post-Restructuring Drift',
+    says: 'Communal, high-solidarity, activist workplace where people come first.',
+    does: 'Reputation rank dropped from #1 to #8 (Harris Poll, 2023→2024). Benefit cuts noted by employees in 2025 Glassdoor reviews.',
+    signals: 'Culture may be drifting from Communal toward Networked — high sociability but eroding solidarity.',
+    gap: 48,
+    source: 'Harris Poll 2024, Glassdoor 2025',
+  },
+];
