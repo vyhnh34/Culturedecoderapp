@@ -7,7 +7,6 @@ function AssumptionCard({ assumption }) {
 
   return (
     <article style={{
-      borderBottom: '1px solid rgba(255,255,255,0.08)',
       paddingBottom: '40px',
       marginBottom: '40px',
     }}>
@@ -15,7 +14,7 @@ function AssumptionCard({ assumption }) {
         fontFamily: 'var(--font-display)',
         fontSize: 'var(--text-xl)',
         lineHeight: 'var(--leading-xl)',
-        color: 'var(--color-stone)',
+        color: '#000000',
         fontStyle: 'italic',
         marginBottom: '24px',
       }}>
@@ -27,7 +26,6 @@ function AssumptionCard({ assumption }) {
         display: 'flex',
         gap: '0',
         marginBottom: '24px',
-        border: '1px solid rgba(255,255,255,0.15)',
         borderRadius: 'var(--radius)',
         overflow: 'hidden',
         width: 'fit-content',
@@ -48,10 +46,14 @@ function AssumptionCard({ assumption }) {
               letterSpacing: '0.05em',
               cursor: 'pointer',
               border: 'none',
+              whiteSpace: 'nowrap',
               backgroundColor: view === tab.key ? 'var(--color-river)' : 'transparent',
-              color: view === tab.key ? 'var(--color-white)' : 'var(--color-glacier)',
-              transition: 'background-color 200ms ease, color 200ms ease',
+              color: '#000000',
+              transition: 'background-color 200ms ease, color 200ms ease, transform 150ms ease',
+              borderRadius: '999px',
             }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
           >
             {tab.label}
           </button>
@@ -67,8 +69,7 @@ function AssumptionCard({ assumption }) {
         {(isEvidence ? assumption.challenges : assumption.supports).map((point, i) => (
           <div key={i} style={{
             padding: '16px 20px',
-            borderLeft: `3px solid ${isEvidence ? 'var(--color-rust)' : 'var(--color-river)'}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
+            backgroundColor: '#000000',
             borderRadius: 'var(--radius)',
             transition: 'opacity 200ms ease',
           }}>
@@ -76,7 +77,7 @@ function AssumptionCard({ assumption }) {
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
-              color: isEvidence ? '#f4a57a' : 'var(--color-glacier)',
+              color: '#FAF7E9',
             }}>
               {point}
             </p>
@@ -93,7 +94,7 @@ export default function TacitAssumptions() {
       <p style={{
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
-        color: 'var(--color-glacier)',
+        color: '#000000',
         marginBottom: '40px',
         letterSpacing: '0.03em',
       }}>

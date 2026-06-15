@@ -23,7 +23,7 @@ export default function ArtifactCard({ artifact }) {
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-base)',
         fontWeight: 600,
-        color: 'var(--color-earth)',
+        color: '#000000',
         lineHeight: 'var(--leading-sm)',
       }}>
         {artifact.title}
@@ -32,7 +32,7 @@ export default function ArtifactCard({ artifact }) {
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
         lineHeight: 'var(--leading-sm)',
-        color: '#444',
+        color: '#000000',
         flexGrow: 1,
       }}>
         {artifact.evidence}

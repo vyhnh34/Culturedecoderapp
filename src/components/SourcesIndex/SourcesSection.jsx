@@ -31,13 +31,16 @@ export default function SourcesSection() {
     : sources.filter(s => activeFilters.includes(s.type));
 
   return (
-    <section id="sources" style={{ backgroundColor: 'var(--color-earth)' }}>
+    <section id="sources" style={{ backgroundColor: 'var(--color-sand)', color: 'var(--color-black)' }}>
+      <div className="max-w-content" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: 300, letterSpacing: '0.08em', marginBottom: '16px' }}>05</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(60px, 9vw, 110px)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.02em' }}>Sources</h2>
+      </div>
       <div className="max-w-content section-padding">
         <SectionHeader
           eyebrow="Evidence Index"
           title="All Sources"
           lead="Every claim in this analysis traces back to a real source. Filter by type or click a row to jump to the relevant section."
-          light
         />
 
         {/* Filter chips */}
@@ -57,16 +60,18 @@ export default function SourcesSection() {
                 style={{
                   padding: '6px 14px',
                   border: `1px solid ${active ? 'var(--color-river)' : 'rgba(255,255,255,0.15)'}`,
-                  borderRadius: '20px',
+                  borderRadius: '999px',
                   backgroundColor: active ? 'var(--color-river)' : 'transparent',
                   fontFamily: 'var(--font-body)',
                   fontSize: 'var(--text-xs)',
                   fontWeight: 600,
                   letterSpacing: '0.06em',
-                  color: active ? 'var(--color-white)' : 'var(--color-glacier)',
+                  color: '#000000',
                   cursor: 'pointer',
                   transition: 'all 200ms ease',
                 }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
               >
                 {type}
               </button>
@@ -78,13 +83,16 @@ export default function SourcesSection() {
               style={{
                 padding: '6px 14px',
                 border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '20px',
+                borderRadius: '999px',
                 backgroundColor: 'transparent',
                 fontFamily: 'var(--font-body)',
                 fontSize: 'var(--text-xs)',
-                color: 'rgba(255,255,255,0.4)',
+                color: '#000000',
                 cursor: 'pointer',
+                transition: 'transform 150ms ease',
               }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
             >
               Clear
             </button>
@@ -96,7 +104,8 @@ export default function SourcesSection() {
           <table style={{
             width: '100%',
             borderCollapse: 'collapse',
-            fontFamily: 'var(--font-body)',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: 'var(--text-sm)',
           }}>
             <thead>
               <tr>
@@ -104,11 +113,10 @@ export default function SourcesSection() {
                   <th key={h} style={{
                     padding: '12px 16px',
                     textAlign: 'left',
-                    fontSize: 'var(--text-xs)',
                     fontWeight: 700,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: 'var(--color-glacier)',
+                    color: '#000000',
                     borderBottom: '1px solid #333',
                     whiteSpace: 'nowrap',
                   }}>
@@ -139,27 +147,22 @@ export default function SourcesSection() {
                   </td>
                   <td style={{
                     padding: '14px 16px',
-                    fontSize: 'var(--text-sm)',
                     lineHeight: 'var(--leading-sm)',
-                    color: 'var(--color-glacier)',
+                    color: '#000000',
                     maxWidth: '440px',
                   }}>
                     {src.quote}
                   </td>
                   <td style={{
                     padding: '14px 16px',
-                    fontSize: 'var(--text-xs)',
-                    color: 'var(--color-sky)',
+                    color: '#000000',
                     whiteSpace: 'nowrap',
-                    fontFamily: 'var(--font-mono)',
                   }}>
                     {src.framework}
                   </td>
                   <td style={{
                     padding: '14px 16px',
-                    fontSize: 'var(--text-xs)',
-                    color: '#666',
-                    fontFamily: 'var(--font-mono)',
+                    color: '#000000',
                     whiteSpace: 'nowrap',
                   }}>
                     {src.year}
@@ -171,14 +174,18 @@ export default function SourcesSection() {
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
-                        fontSize: 'var(--text-xs)',
-                        color: 'var(--color-river)',
-                        fontFamily: 'var(--font-body)',
+                        fontSize: 'var(--text-sm)',
+                        color: '#000000',
+                        fontFamily: "'Inter', sans-serif",
                         fontWeight: 600,
                         padding: 0,
                         textDecoration: 'underline',
                         textUnderlineOffset: '3px',
+                        borderRadius: '999px',
+                        transition: 'transform 150ms ease',
                       }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
                     >
                       {sectionLabels[src.section] || src.section} →
                     </button>
@@ -191,7 +198,7 @@ export default function SourcesSection() {
             <p style={{
               textAlign: 'center',
               padding: '48px',
-              color: 'var(--color-glacier)',
+              color: '#000000',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
             }}>
@@ -204,7 +211,7 @@ export default function SourcesSection() {
           marginTop: '32px',
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--text-xs)',
-          color: '#555',
+          color: '#000000',
           borderTop: '1px solid #2a2a2a',
           paddingTop: '16px',
         }}>

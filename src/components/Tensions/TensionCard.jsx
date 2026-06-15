@@ -24,11 +24,9 @@ export default function TensionCard({ card }) {
 
   return (
     <article style={{
-      border: '1px solid #E0DDD8',
       borderRadius: 'var(--radius)',
       backgroundColor: 'var(--color-white)',
       overflow: 'hidden',
-      boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
     }}>
       {/* Card header */}
       <div style={{
@@ -77,7 +75,7 @@ export default function TensionCard({ card }) {
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
-              color: '#444',
+              color: '#FFFFFF',
             }}>
               {col.content}
             </p>
@@ -97,7 +95,7 @@ export default function TensionCard({ card }) {
             fontFamily: 'var(--font-body)',
             fontSize: 'var(--text-xs)',
             fontWeight: 600,
-            color: '#888',
+            color: '#FFFFFF',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
@@ -128,7 +126,7 @@ export default function TensionCard({ card }) {
         <p style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 'var(--text-xs)',
-          color: '#aaa',
+          color: '#FFFFFF',
           marginTop: '6px',
         }}>
           {card.source}

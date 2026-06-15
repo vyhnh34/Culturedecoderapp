@@ -100,7 +100,11 @@ export default function GoffeeJonesGrid() {
   const dotY = toSvgY(plotPos.solidarity);
 
   return (
-    <section id="goffee-jones" style={{ backgroundColor: 'var(--color-river)' }}>
+    <section id="goffee-jones" style={{ backgroundColor: 'var(--color-blue)', color: '#FFFFFF' }}>
+      <div className="max-w-content" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: 300, letterSpacing: '0.08em', marginBottom: '16px' }}>02</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(60px, 9vw, 110px)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.02em' }}>Goffee & Jones</h2>
+      </div>
       <div className="max-w-content section-padding">
         <SectionHeader
           eyebrow="Framework 02 — Goffee & Jones (1998)"
@@ -128,18 +132,18 @@ export default function GoffeeJonesGrid() {
             <line x1="0" y1="200" x2="400" y2="200" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
 
             {/* Axis labels */}
-            <text x="8" y="196" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="start" fontWeight="600">HIGH</text>
-            <text x="8" y="208" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="start" fontWeight="600">SOCIABILITY</text>
-            <text x="370" y="196" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="end" fontWeight="600">LOW</text>
-            <text x="370" y="208" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="end" fontWeight="600">SOCIABILITY</text>
-            <text x="200" y="13" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="middle" fontWeight="600">HIGH SOLIDARITY</text>
-            <text x="200" y="397" fontFamily="var(--font-body)" fontSize="9" fill="rgba(255,255,255,0.6)" textAnchor="middle" fontWeight="600">LOW SOLIDARITY</text>
+            <text x="8" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="start" fontWeight="600">HIGH</text>
+            <text x="8" y="208" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="start" fontWeight="600">SOCIABILITY</text>
+            <text x="370" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="end" fontWeight="600">LOW</text>
+            <text x="370" y="208" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="end" fontWeight="600">SOCIABILITY</text>
+            <text x="200" y="13" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="middle" fontWeight="600">HIGH SOLIDARITY</text>
+            <text x="200" y="397" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="middle" fontWeight="600">LOW SOLIDARITY</text>
 
             {/* Quadrant labels — HIGH sociability = LEFT */}
             <text x="100" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="800" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">COMMUNAL</text>
-            <text x="300" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="rgba(255,255,255,0.45)" textAnchor="middle" letterSpacing="1">MERCENARY</text>
-            <text x="100" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="rgba(255,255,255,0.45)" textAnchor="middle" letterSpacing="1">NETWORKED</text>
-            <text x="300" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="rgba(255,255,255,0.35)" textAnchor="middle" letterSpacing="1">FRAGMENTED</text>
+            <text x="300" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">MERCENARY</text>
+            <text x="100" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">NETWORKED</text>
+            <text x="300" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">FRAGMENTED</text>
 
             {/* Drift arrow */}
             {drifted && (
@@ -234,7 +238,7 @@ export default function GoffeeJonesGrid() {
             style={{
               padding: '12px 28px',
               border: '2px solid rgba(255,255,255,0.5)',
-              borderRadius: 'var(--radius)',
+              borderRadius: '999px',
               backgroundColor: drifted ? 'rgba(181,73,10,0.85)' : 'transparent',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
@@ -244,8 +248,8 @@ export default function GoffeeJonesGrid() {
               cursor: 'pointer',
               transition: 'all 200ms ease',
             }}
-            onMouseEnter={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; }}
-            onMouseLeave={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'transparent'; }}
+            onMouseEnter={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'scale(1.03)'; }}
+            onMouseLeave={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'scale(1)'; }}
           >
             {drifted ? '← Show original position' : 'Show what changed (2024) →'}
           </button>
@@ -255,11 +259,11 @@ export default function GoffeeJonesGrid() {
           <div style={{
             padding: '20px 24px',
             borderLeft: '4px solid #FFFFFF',
-            backgroundColor: 'rgba(181,73,10,0.25)',
+            backgroundColor: '#FAF7E9',
             borderRadius: 'var(--radius)',
             marginBottom: '48px',
           }}>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: '#FFFFFF' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: '#000000' }}>
               June–Sept 2024 layoffs strain solidarity. Reputation rank: #1 → #8 (Harris Poll).
             </p>
           </div>
@@ -283,7 +287,7 @@ export default function GoffeeJonesGrid() {
                 fontWeight: 700,
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.55)',
+                color: '#FFFFFF',
                 marginBottom: '16px',
                 borderBottom: '1px solid rgba(255,255,255,0.15)',
                 paddingBottom: '10px',
@@ -299,12 +303,12 @@ export default function GoffeeJonesGrid() {
                     padding: '14px 16px',
                     border: '1px solid rgba(255,255,255,0.12)',
                     borderRadius: 'var(--radius)',
-                    backgroundColor: 'rgba(255,255,255,0.07)',
+                    backgroundColor: '#FAF7E9',
                   }}>
                     <span style={{
                       fontFamily: 'var(--font-body)',
                       fontSize: 'var(--text-lg)',
-                      color: '#FFFFFF',
+                      color: '#000000',
                       fontWeight: 800,
                       flexShrink: 0,
                       minWidth: '52px',
@@ -313,11 +317,11 @@ export default function GoffeeJonesGrid() {
                       {item.stat}
                     </span>
                     <div>
-                      <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: 'rgba(245,242,237,0.9)', fontWeight: 500 }}>
+                      <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: '#000000', fontWeight: 500 }}>
                         {item.label}
                       </p>
                       {item.sub && (
-                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.45)', marginTop: '2px' }}>
+                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-xs)', color: '#000000', marginTop: '2px' }}>
                           {item.sub}
                         </p>
                       )}
@@ -335,7 +339,7 @@ export default function GoffeeJonesGrid() {
             fontFamily: 'var(--font-body)',
             fontSize: 'var(--text-sm)',
             fontWeight: 600,
-            color: 'rgba(255,255,255,0.6)',
+            color: '#FFFFFF',
             cursor: 'pointer',
             padding: '14px 0',
             borderTop: '1px solid rgba(255,255,255,0.15)',
@@ -354,12 +358,12 @@ export default function GoffeeJonesGrid() {
                 padding: '16px',
                 border: '1px solid rgba(255,255,255,0.12)',
                 borderRadius: 'var(--radius)',
-                backgroundColor: 'rgba(255,255,255,0.06)',
+                backgroundColor: '#FAF7E9',
               }}>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-xs)', fontWeight: 800, letterSpacing: '0.1em', color: '#FFFFFF', marginBottom: '6px' }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-xs)', fontWeight: 800, letterSpacing: '0.1em', color: '#000000', marginBottom: '6px' }}>
                   {q.label}
                 </p>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: 'rgba(245,242,237,0.72)', lineHeight: 1.5 }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: '#000000', lineHeight: 1.5 }}>
                   {q.desc}
                 </p>
               </div>

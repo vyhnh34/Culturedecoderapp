@@ -13,7 +13,7 @@ function StatPill({ stat }) {
     <div style={{
       padding: '28px 32px',
       borderTop: '3px solid var(--color-river)',
-      backgroundColor: 'rgba(255,255,255,0.04)',
+      backgroundColor: '#FAF7E9',
       flex: '1 1 160px',
       minWidth: '160px',
     }}>
@@ -21,7 +21,7 @@ function StatPill({ stat }) {
         fontFamily: 'var(--font-body)',
         fontSize: 'clamp(36px, 5vw, 56px)',
         lineHeight: 1,
-        color: '#FFFFFF',
+        color: '#000000',
         fontWeight: 800,
         letterSpacing: '-0.03em',
         marginBottom: '8px',
@@ -31,16 +31,17 @@ function StatPill({ stat }) {
       <div style={{
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
-        color: 'rgba(245,242,237,0.75)',
+        color: '#000000',
         fontWeight: 500,
         marginBottom: '2px',
       }}>
         {stat.label}
       </div>
       <div style={{
-        fontFamily: 'var(--font-mono)',
+        fontFamily: "'Inter', sans-serif",
         fontSize: 'var(--text-xs)',
-        color: 'rgba(143,179,192,0.7)',
+        fontWeight: 300,
+        color: '#000000',
       }}>
         {stat.context}
       </div>
@@ -77,7 +78,7 @@ export default function Hero() {
       className="topo-bg"
       style={{
         minHeight: '100vh',
-        backgroundColor: 'var(--color-earth)',
+        backgroundColor: 'var(--color-black)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -103,13 +104,12 @@ export default function Hero() {
         {/* Headline — serif for the hero only, per PRD */}
         <h1 style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(52px, 9vw, var(--text-3xl))',
-          lineHeight: 0.95,
+          fontSize: 'clamp(60px, 9vw, 110px)',
+          lineHeight: 0.92,
           color: '#FFFFFF',
-          fontWeight: 700,
+          fontWeight: 400,
           letterSpacing: '-0.02em',
           marginBottom: '28px',
-          maxWidth: '760px',
         }}>
           Reading Patagonia
         </h1>
@@ -164,7 +164,7 @@ export default function Hero() {
           gap: '1px',
           flexWrap: 'wrap',
           marginBottom: '52px',
-          backgroundColor: 'rgba(255,255,255,0.06)',
+          backgroundColor: '#FAF7E9',
           border: '1px solid rgba(255,255,255,0.06)',
           borderRadius: 'var(--radius)',
           overflow: 'hidden',
@@ -180,9 +180,9 @@ export default function Hero() {
         <button
           onClick={scrollDown}
           style={{
-            background: 'var(--color-river)',
-            border: 'none',
-            borderRadius: 'var(--radius)',
+            background: 'transparent',
+            border: '2px solid #FFFFFF',
+            borderRadius: '999px',
             padding: '16px 32px',
             fontFamily: 'var(--font-body)',
             fontSize: 'var(--text-sm)',
@@ -194,10 +194,10 @@ export default function Hero() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '10px',
-            transition: 'background-color 200ms ease, transform 150ms ease',
+            transition: 'background-color 200ms ease, color 200ms ease, transform 150ms ease',
           }}
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#245049'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'var(--color-river)'}
+          onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#FFFFFF'; e.currentTarget.style.color = '#000000'; e.currentTarget.style.transform = 'scale(1.03)'; }}
+          onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#FFFFFF'; e.currentTarget.style.transform = 'scale(1)'; }}
         >
           Explore the Analysis
           <span aria-hidden="true" style={{ fontSize: '16px' }}>↓</span>

@@ -13,7 +13,7 @@ const layers = [
     subtitle: 'Surface — what you see, hear, and feel',
     bg: 'var(--color-stone)',
     textColor: 'var(--color-earth)',
-    accentColor: 'var(--color-river)',
+    accentColor: '#000000',
     borderColor: 'var(--color-glacier)',
   },
   {
@@ -22,8 +22,8 @@ const layers = [
     title: 'Espoused Values',
     subtitle: 'Mid-layer — what the organization says it believes',
     bg: 'var(--color-glacier)',
-    textColor: 'var(--color-earth)',
-    accentColor: 'var(--color-river)',
+    textColor: '#000000',
+    accentColor: '#000000',
     borderColor: '#a8bdb9',
   },
   {
@@ -32,8 +32,8 @@ const layers = [
     title: 'Shared Tacit Assumptions',
     subtitle: 'Deep — the invisible rules that actually govern behavior',
     bg: 'var(--color-earth)',
-    textColor: 'var(--color-stone)',
-    accentColor: 'var(--color-sky)',
+    textColor: '#000000',
+    accentColor: '#000000',
     borderColor: '#333',
   },
 ];
@@ -55,7 +55,6 @@ function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
       id={`schein-${layer.id}`}
       style={{
         backgroundColor: layer.bg,
-        borderBottom: `1px solid ${layer.borderColor}`,
       }}
     >
       <button
@@ -74,7 +73,11 @@ function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
           textAlign: 'left',
           maxWidth: 'var(--max-width)',
           margin: '0 auto',
+          borderRadius: '999px',
+          transition: 'transform 150ms ease',
         }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', marginBottom: '4px' }}>
@@ -91,7 +94,7 @@ function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
             <span style={{
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-xs)',
-              color: layer.id === 'tacit' ? 'rgba(197,212,208,0.5)' : 'rgba(26,26,26,0.4)',
+              color: '#000000',
               letterSpacing: '0.06em',
             }}>
               {layer.subtitle}
@@ -153,7 +156,11 @@ export default function ScheinSection({ onLevelChange }) {
   };
 
   return (
-    <section id="schein" aria-labelledby="schein-title">
+    <section id="schein" aria-labelledby="schein-title" style={{ backgroundColor: 'var(--color-cream)', color: 'var(--color-black)' }}>
+      <div className="max-w-content" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: 300, letterSpacing: '0.08em', marginBottom: '16px' }}>01</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(60px, 9vw, 110px)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.02em' }}>Schein's Three Levels</h2>
+      </div>
       <div className="max-w-content section-padding">
         <SectionHeader
           eyebrow="Framework 01 — Edgar Schein (2010)"
