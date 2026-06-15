@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const stats = [
   { value: 4, suffix: '%', label: 'employee turnover', context: 'vs 57% US avg' },
@@ -8,32 +8,7 @@ const stats = [
 
 const frameworks = ['SCHEIN', 'GOFFEE & JONES', 'DESIGN MATURITY'];
 
-function useCountUp(target, duration = 1500, start = false) {
-  const [value, setValue] = useState(0);
-  const isFloat = target % 1 !== 0;
-
-  useEffect(() => {
-    if (!start) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) { setValue(target); return; }
-    const startTime = performance.now();
-    const step = (now) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * target;
-      setValue(isFloat ? Math.round(current * 10) / 10 : Math.floor(current));
-      if (progress < 1) requestAnimationFrame(step);
-      else setValue(target);
-    };
-    requestAnimationFrame(step);
-  }, [target, duration, start, isFloat]);
-
-  return value;
-}
-
-function StatPill({ stat, start }) {
-  const count = useCountUp(stat.value, 1500, start);
+function StatPill({ stat }) {
   return (
     <div style={{
       padding: '28px 32px',
@@ -51,7 +26,7 @@ function StatPill({ stat, start }) {
         letterSpacing: '-0.03em',
         marginBottom: '8px',
       }}>
-        {stat.prefix || ''}{count}{stat.suffix}
+        {stat.prefix || ''}{stat.value}{stat.suffix}
       </div>
       <div style={{
         fontFamily: 'var(--font-body)',
@@ -74,12 +49,10 @@ function StatPill({ stat, start }) {
 }
 
 export default function Hero() {
-  const [started, setStarted] = useState(false);
   const [frameworksVisible, setFrameworksVisible] = useState([false, false, false]);
 
   useEffect(() => {
     const t = setTimeout(() => {
-      setStarted(true);
       frameworks.forEach((_, i) => {
         setTimeout(() => {
           setFrameworksVisible(prev => {
@@ -198,7 +171,7 @@ export default function Hero() {
         }} role="list" aria-label="Key statistics">
           {stats.map(stat => (
             <div key={stat.label} role="listitem" style={{ flex: '1 1 160px' }}>
-              <StatPill stat={stat} start={started} />
+              <StatPill stat={stat} />
             </div>
           ))}
         </div>
@@ -231,19 +204,6 @@ export default function Hero() {
         </button>
       </div>
 
-      <div style={{
-        position: 'absolute',
-        bottom: '28px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: 'rgba(197,212,208,0.45)',
-        fontSize: 'var(--text-xs)',
-        fontFamily: 'var(--font-body)',
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-      }} aria-hidden="true">
-        Scroll
-      </div>
     </section>
   );
 }
