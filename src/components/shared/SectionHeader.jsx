@@ -1,8 +1,8 @@
 export default function SectionHeader({ eyebrow, title, lead, light = false, river = false }) {
   // river = section on --color-river background (white text)
   const titleColor = light || river ? '#FFFFFF' : 'var(--color-earth)';
-  const eyebrowColor = river ? 'rgba(255,255,255,0.6)' : light ? 'rgba(255,255,255,0.55)' : 'var(--color-river)';
-  const leadColor = river ? 'rgba(255,255,255,0.75)' : light ? 'rgba(255,255,255,0.65)' : '#3a3a3a';
+  const eyebrowColor = river ? '#FFFFFF' : light ? '#FFFFFF' : 'var(--color-river)';
+  const leadColor = river ? '#FFFFFF' : light ? '#FFFFFF' : '#3a3a3a';
 
   return (
     <div style={{ marginBottom: '48px' }}>
@@ -25,7 +25,7 @@ export default function SectionHeader({ eyebrow, title, lead, light = false, riv
         fontSize: 'clamp(32px, 4vw, var(--text-2xl))',
         lineHeight: 1.05,
         color: titleColor,
-        fontWeight: 800,
+        fontWeight: 400,
         letterSpacing: '-0.02em',
         marginBottom: lead ? '20px' : 0,
       }}>

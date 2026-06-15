@@ -15,8 +15,8 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-base);
-  background-color: var(--color-stone);
-  color: var(--color-earth);
+  background-color: var(--color-cream);
+  color: var(--color-black);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -69,22 +69,34 @@ body {
 
 .radius { border-radius: var(--radius); }
 
-.topo-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%232D5F52' stroke-width='1'%3E%3Cellipse cx='400' cy='400' rx='380' ry='300' opacity='0.12'/%3E%3Cellipse cx='400' cy='400' rx='320' ry='240' opacity='0.10'/%3E%3Cellipse cx='400' cy='400' rx='260' ry='180' opacity='0.08'/%3E%3Cellipse cx='400' cy='400' rx='200' ry='130' opacity='0.08'/%3E%3Cellipse cx='400' cy='400' rx='140' ry='80' opacity='0.06'/%3E%3Cellipse cx='400' cy='400' rx='80' ry='40' opacity='0.06'/%3E%3Cellipse cx='400' cy='400' rx='440' ry='360' opacity='0.10'/%3E%3Cellipse cx='400' cy='400' rx='500' ry='430' opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 700px 700px;
-  background-repeat: repeat;
-}
-
 .evidence-card {
-  transition: transform 150ms ease, border-color 150ms ease;
-  border: 1px solid var(--color-glacier);
   border-radius: var(--radius);
   cursor: default;
 }
 
-.evidence-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--color-river);
+.card {
+  background-color: #FAF7E9;
+  color: #000000;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none;
+}
+
+.card-dark {
+  background-color: #000000;
+  color: #FAF7E9;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-pill {
+  border-radius: 999px;
+  transition: transform 150ms ease;
+}
+
+.btn-pill:hover {
+  transform: scale(1.03);
 }
 
 /* Ticker animation */

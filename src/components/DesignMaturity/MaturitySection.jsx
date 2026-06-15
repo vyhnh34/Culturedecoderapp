@@ -28,7 +28,6 @@ function DimensionRow({ dim }) {
   return (
     <div style={{
       padding: '20px 0',
-      borderBottom: '1px solid rgba(255,255,255,0.07)',
     }}>
       <div style={{
         display: 'flex',
@@ -61,7 +60,7 @@ function DimensionRow({ dim }) {
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
         lineHeight: 1.55,
-        color: 'rgba(245,242,237,0.65)',
+        color: '#FFFFFF',
         marginTop: '8px',
       }}>
         {dim.evidence}
@@ -78,7 +77,11 @@ const radarData = maturityDimensions.map(d => ({
 
 export default function MaturitySection() {
   return (
-    <section id="design-maturity" style={{ backgroundColor: 'var(--color-earth)' }}>
+    <section id="design-maturity" style={{ backgroundColor: 'var(--color-green)', color: '#FFFFFF' }}>
+      <div className="max-w-content" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: '24px', fontWeight: 300, letterSpacing: '0.08em', marginBottom: '16px' }}>03</p>
+        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(60px, 9vw, 110px)', lineHeight: 0.92, fontWeight: 400, letterSpacing: '-0.02em' }}>Design Maturity</h2>
+      </div>
       <div className="max-w-content section-padding">
         <SectionHeader
           eyebrow="Framework 03 — Design Maturity Assessment"
@@ -138,24 +141,24 @@ export default function MaturitySection() {
               padding: '28px 24px',
               border: '1px solid rgba(45,95,82,0.5)',
               borderRadius: 'var(--radius)',
-              backgroundColor: 'rgba(45,95,82,0.15)',
+              backgroundColor: '#FFFFFF',
             }}>
               <div style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '48px',
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
-                color: 'var(--color-river)',
+                color: '#000000',
                 lineHeight: 1,
                 marginBottom: '8px',
               }}>
-                {overallScore}<span style={{ fontSize: '24px', color: 'rgba(197,212,208,0.5)' }}>/5</span>
+                {overallScore}<span style={{ fontSize: '24px', color: '#000000' }}>/5</span>
               </div>
               <div style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: 'var(--text-base)',
                 fontWeight: 700,
-                color: '#FFFFFF',
+                color: '#000000',
                 marginBottom: '4px',
               }}>
                 {overallLabel}
@@ -163,7 +166,7 @@ export default function MaturitySection() {
               <div style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: 'var(--text-sm)',
-                color: 'rgba(197,212,208,0.65)',
+                color: '#000000',
               }}>
                 {overallSubLabel}
               </div>
@@ -181,14 +184,14 @@ export default function MaturitySection() {
               marginTop: '32px',
               padding: '20px 24px',
               borderLeft: '4px solid var(--color-sky)',
-              backgroundColor: 'rgba(143, 179, 192, 0.08)',
+              backgroundColor: '#FAF7E9',
               borderRadius: 'var(--radius)',
             }}>
               <p style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'var(--text-sm)',
                 lineHeight: 'var(--leading-base)',
-                color: 'var(--color-glacier)',
+                color: '#000000',
               }}>
                 {contextualNote}
               </p>

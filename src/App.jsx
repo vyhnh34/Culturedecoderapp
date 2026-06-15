@@ -7,13 +7,10 @@ import GoffeeJonesGrid from './components/GoffeeJones/GoffeeJonesGrid';
 import MaturitySection from './components/DesignMaturity/MaturitySection';
 import TensionsSection from './components/Tensions/TensionsSection';
 import SourcesSection from './components/SourcesIndex/SourcesSection';
-import DepthIndicator from './components/shared/DepthIndicator';
-
 const sectionIds = ['hero', 'schein', 'goffee-jones', 'design-maturity', 'tensions', 'sources'];
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
-  const [activeScheinLevel, setActiveScheinLevel] = useState('artifacts');
 
   useEffect(() => {
     const observers = sectionIds.map(id => {
@@ -35,10 +32,9 @@ export default function App() {
   return (
     <>
       <Nav activeSection={activeSection} />
-      <DepthIndicator activeScheinLevel={activeScheinLevel} />
       <main>
         <Hero />
-        <ScheinSection onLevelChange={setActiveScheinLevel} />
+        <ScheinSection onLevelChange={() => {}} />
         <GoffeeJonesGrid />
         <MaturitySection />
         <TensionsSection />
