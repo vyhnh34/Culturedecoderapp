@@ -1,14 +1,14 @@
 const tagStyles = {
   'Glassdoor': { bg: '#e8f4ea', color: '#2d7a40' },
-  'Patagonia.com': { bg: '#e8f0ee', color: 'var(--color-river)' },
-  'News': { bg: '#fdf0e8', color: 'var(--color-rust)' },
+  'Patagonia.com': { bg: '#e8f0ee', color: '#1977CC' },
+  'News': { bg: '#fdf0e8', color: '#B3261E' },
   'LinkedIn': { bg: '#e8eef8', color: '#2d4a8a' },
   'Academic': { bg: '#f0edf8', color: '#5a3d8a' },
-  'Progress Report 2025': { bg: '#e8f0ee', color: 'var(--color-river)' },
+  'Progress Report 2025': { bg: '#e8f0ee', color: '#1977CC' },
 };
 
 export default function EvidenceTag({ source }) {
-  const style = tagStyles[source] || { bg: 'var(--color-glacier)', color: 'var(--color-earth)' };
+  const style = tagStyles[source] || { bg: '#EFE9D6', color: '#000000' };
   return (
     <span style={{
       display: 'inline-block',

@@ -59,14 +59,14 @@ export default function SourcesSection() {
                 aria-pressed={active}
                 style={{
                   padding: '6px 14px',
-                  border: `1px solid ${active ? 'var(--color-river)' : 'rgba(255,255,255,0.15)'}`,
+                  border: `1px solid ${active ? '#000000' : 'rgba(0,0,0,0.2)'}`,
                   borderRadius: '999px',
-                  backgroundColor: active ? 'var(--color-river)' : 'transparent',
+                  backgroundColor: active ? '#000000' : 'transparent',
                   fontFamily: 'var(--font-body)',
                   fontSize: 'var(--text-xs)',
                   fontWeight: 600,
                   letterSpacing: '0.06em',
-                  color: '#000000',
+                  color: active ? '#FFFFFF' : '#000000',
                   cursor: 'pointer',
                   transition: 'all 200ms ease',
                 }}
@@ -143,7 +143,16 @@ export default function SourcesSection() {
                   aria-label={`${src.type}: ${src.quote}`}
                 >
                   <td style={{ padding: '14px 16px', whiteSpace: 'nowrap' }}>
-                    <EvidenceTag source={src.type} />
+                    <a
+                      href={src.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={e => e.stopPropagation()}
+                      style={{ textDecoration: 'none', display: 'inline-block' }}
+                      aria-label={`Open external source for: ${src.quote}`}
+                    >
+                      <EvidenceTag source={src.type} />
+                    </a>
                   </td>
                   <td style={{
                     padding: '14px 16px',
