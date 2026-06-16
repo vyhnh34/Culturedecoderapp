@@ -25,14 +25,13 @@ export default function TensionCard({ card }) {
   return (
     <article style={{
       borderRadius: 'var(--radius)',
-      backgroundColor: 'var(--color-white)',
+      backgroundColor: '#FFFFFF',
       overflow: 'hidden',
     }}>
       {/* Card header */}
       <div style={{
         padding: '18px 24px 14px',
-        borderBottom: '1px solid #E0DDD8',
-        backgroundColor: 'var(--color-earth)',
+        backgroundColor: '#000000',
       }}>
         <h3 style={{
           fontFamily: 'var(--font-body)',
@@ -49,16 +48,16 @@ export default function TensionCard({ card }) {
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
-        borderBottom: '1px solid var(--color-glacier)',
+        borderBottom: '1px solid rgba(0,0,0,0.12)',
       }}>
         {[
-          { label: 'Says', content: card.says, color: 'var(--color-river)' },
-          { label: 'Does', content: card.does, color: 'var(--color-earth)' },
-          { label: 'Signals', content: card.signals, color: 'var(--color-rust)' },
+          { label: 'Says', content: card.says },
+          { label: 'Does', content: card.does },
+          { label: 'Signals', content: card.signals },
         ].map((col, i) => (
           <div key={col.label} style={{
             padding: '20px',
-            borderRight: i < 2 ? '1px solid var(--color-glacier)' : 'none',
+            borderRight: i < 2 ? '1px solid rgba(0,0,0,0.12)' : 'none',
           }}>
             <p style={{
               fontFamily: 'var(--font-body)',
@@ -66,7 +65,7 @@ export default function TensionCard({ card }) {
               fontWeight: 700,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: col.color,
+              color: '#000000',
               marginBottom: '8px',
             }}>
               {col.label}
@@ -75,7 +74,7 @@ export default function TensionCard({ card }) {
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
-              color: '#FFFFFF',
+              color: 'rgba(0,0,0,0.8)',
             }}>
               {col.content}
             </p>
@@ -95,7 +94,7 @@ export default function TensionCard({ card }) {
             fontFamily: 'var(--font-body)',
             fontSize: 'var(--text-xs)',
             fontWeight: 600,
-            color: '#FFFFFF',
+            color: '#000000',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
@@ -104,7 +103,8 @@ export default function TensionCard({ card }) {
           <span style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 'var(--text-xs)',
-            color: 'var(--color-rust)',
+            fontWeight: 700,
+            color: '#B3261E',
           }}>
             {card.gap}%
           </span>
@@ -118,7 +118,7 @@ export default function TensionCard({ card }) {
           <div style={{
             height: '100%',
             borderRadius: '3px',
-            backgroundColor: 'var(--color-rust)',
+            backgroundColor: '#B3261E',
             width: animated ? `${card.gap}%` : '0%',
             transition: 'width 800ms ease',
           }} />
@@ -126,7 +126,7 @@ export default function TensionCard({ card }) {
         <p style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 'var(--text-xs)',
-          color: '#FFFFFF',
+          color: 'rgba(0,0,0,0.6)',
           marginTop: '6px',
         }}>
           {card.source}

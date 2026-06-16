@@ -14,6 +14,7 @@ export default function TensionsSection() {
           eyebrow="Culture Gaps & Tensions"
           title="What It Says vs. What It Does"
           lead="A company whose brand is built on radical authenticity must now navigate the gap between its founding mythology and its present-day operational reality."
+          light
         />
 
         <div style={{
