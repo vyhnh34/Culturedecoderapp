@@ -1,8 +1,10 @@
 export default function SectionHeader({ eyebrow, title, lead, light = false, river = false }) {
   // river = section on --color-river background (white text)
   const titleColor = light || river ? '#FFFFFF' : 'var(--color-earth)';
-  const eyebrowColor = river ? '#FFFFFF' : light ? '#FFFFFF' : 'var(--color-river)';
-  const leadColor = river ? '#FFFFFF' : light ? '#FFFFFF' : '#3a3a3a';
+  // eyebrow/lead are always sub-24px text, so on a mid-tone "light" background
+  // (e.g. --color-green) white fails AA contrast — use black instead.
+  const eyebrowColor = river ? '#FFFFFF' : light ? '#000000' : 'var(--color-river)';
+  const leadColor = river ? '#FFFFFF' : light ? '#000000' : '#3a3a3a';
 
   return (
     <div style={{ marginBottom: '48px' }}>
@@ -38,7 +40,7 @@ export default function SectionHeader({ eyebrow, title, lead, light = false, riv
           lineHeight: 1.65,
           color: leadColor,
           maxWidth: '620px',
-          fontWeight: 400,
+          fontWeight: light ? 500 : 400,
         }}>
           {lead}
         </p>

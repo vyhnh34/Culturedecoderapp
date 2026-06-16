@@ -10,14 +10,14 @@ import { maturityDimensions, overallScore, overallLabel, overallSubLabel, contex
 
 function ScoreBar({ score }) {
   return (
-    <div style={{ position: 'relative', height: '4px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', height: '4px', backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
       <div style={{
         position: 'absolute',
         left: 0,
         top: 0,
         height: '100%',
         width: `${(score / 5) * 100}%`,
-        backgroundColor: 'var(--color-river)',
+        backgroundColor: 'var(--color-green)',
         borderRadius: '2px',
       }} />
     </div>
@@ -27,7 +27,10 @@ function ScoreBar({ score }) {
 function DimensionRow({ dim }) {
   return (
     <div style={{
-      padding: '20px 0',
+      padding: '20px 24px',
+      marginBottom: '16px',
+      backgroundColor: '#FFFFFF',
+      borderRadius: 'var(--radius)',
     }}>
       <div style={{
         display: 'flex',
@@ -39,20 +42,20 @@ function DimensionRow({ dim }) {
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--text-base)',
           fontWeight: 700,
-          color: '#FFFFFF',
+          color: '#000000',
         }}>
           {dim.dimension}
         </h4>
         <span style={{
           fontFamily: 'var(--font-body)',
           fontSize: '22px',
-          color: 'var(--color-river)',
+          color: '#000000',
           fontWeight: 800,
           letterSpacing: '-0.03em',
           lineHeight: 1,
         }}>
           {dim.score}
-          <span style={{ fontSize: 'var(--text-xs)', color: 'rgba(197,212,208,0.55)', fontWeight: 500 }}>/5</span>
+          <span style={{ fontSize: 'var(--text-xs)', color: 'rgba(0,0,0,0.6)', fontWeight: 500 }}>/5</span>
         </span>
       </div>
       <ScoreBar score={dim.score} />
@@ -60,8 +63,8 @@ function DimensionRow({ dim }) {
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
         lineHeight: 1.55,
-        color: '#FFFFFF',
-        marginTop: '8px',
+        color: 'rgba(0,0,0,0.75)',
+        marginTop: '10px',
       }}>
         {dim.evidence}
       </p>
@@ -100,23 +103,23 @@ export default function MaturitySection() {
           <div>
             <div style={{ height: '320px' }} aria-hidden="true">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-                  <PolarGrid stroke="rgba(255,255,255,0.1)" />
+                <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }} accessibilityLayer={false}>
+                  <PolarGrid stroke="rgba(255,255,255,0.45)" />
                   <PolarAngleAxis
                     dataKey="subject"
                     tick={{
                       fontFamily: 'var(--font-body)',
-                      fontSize: 12,
-                      fill: 'var(--color-glacier)',
-                      fontWeight: 600,
+                      fontSize: 13,
+                      fill: '#FFFFFF',
+                      fontWeight: 700,
                     }}
                   />
                   <Radar
                     name="Patagonia"
                     dataKey="score"
-                    stroke="var(--color-river)"
-                    fill="var(--color-river)"
-                    fillOpacity={0.35}
+                    stroke="#FFFFFF"
+                    fill="#FFFFFF"
+                    fillOpacity={0.3}
                     strokeWidth={2}
                   />
                 </RadarChart>
@@ -139,7 +142,7 @@ export default function MaturitySection() {
               textAlign: 'center',
               marginTop: '24px',
               padding: '28px 24px',
-              border: '1px solid rgba(45,95,82,0.5)',
+              border: '1px solid rgba(52,149,116,0.5)',
               borderRadius: 'var(--radius)',
               backgroundColor: '#FFFFFF',
             }}>
@@ -183,13 +186,13 @@ export default function MaturitySection() {
             <blockquote style={{
               marginTop: '32px',
               padding: '20px 24px',
-              borderLeft: '4px solid var(--color-sky)',
+              borderLeft: '4px solid var(--color-blue)',
               backgroundColor: '#FAF7E9',
               borderRadius: 'var(--radius)',
             }}>
               <p style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 'var(--text-sm)',
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--text-base)',
                 lineHeight: 'var(--leading-base)',
                 color: '#000000',
               }}>
@@ -204,8 +207,8 @@ export default function MaturitySection() {
           {maturityDimensions.map(d => (
             <div key={d.id} style={{ marginBottom: '16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: 'var(--color-stone)', fontWeight: 600 }}>{d.dimension}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: 'var(--color-river)' }}>{d.score}/5</span>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: '#000000', fontWeight: 600 }}>{d.dimension}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: '#000000' }}>{d.score}/5</span>
               </div>
               <ScoreBar score={d.score} />
             </div>
