@@ -11,34 +11,31 @@ const layers = [
     level: 'Level 1',
     title: 'Artifacts',
     subtitle: 'Surface — what you see, hear, and feel',
-    bg: 'var(--color-stone)',
-    textColor: 'var(--color-earth)',
+    bg: '#FAF7E9',
+    textColor: '#000000',
     accentColor: '#000000',
-    borderColor: 'var(--color-glacier)',
   },
   {
     id: 'espoused',
     level: 'Level 2',
     title: 'Espoused Values',
     subtitle: 'Mid-layer — what the organization says it believes',
-    bg: 'var(--color-glacier)',
+    bg: '#EFE9D6',
     textColor: '#000000',
     accentColor: '#000000',
-    borderColor: '#a8bdb9',
   },
   {
     id: 'tacit',
     level: 'Level 3',
     title: 'Shared Tacit Assumptions',
     subtitle: 'Deep — the invisible rules that actually govern behavior',
-    bg: 'var(--color-earth)',
+    bg: '#E1D8BC',
     textColor: '#000000',
     accentColor: '#000000',
-    borderColor: '#333',
   },
 ];
 
-function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
+function ScheinLayer({ layer, isFirst, isOpen, onToggle, onActive, children }) {
   const contentRef = useRef(null);
   const [height, setHeight] = useState(0);
 
@@ -55,6 +52,8 @@ function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
       id={`schein-${layer.id}`}
       style={{
         backgroundColor: layer.bg,
+        borderTop: isFirst ? 'none' : '1px solid rgba(0,0,0,0.15)',
+        boxShadow: isFirst ? 'none' : 'inset 0 4px 8px -8px rgba(0,0,0,0.1)',
       }}
     >
       <button
@@ -80,21 +79,21 @@ function ScheinLayer({ layer, isOpen, onToggle, onActive, children }) {
         onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '14px', marginBottom: '4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '4px' }}>
             <span style={{
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-xs)',
               fontWeight: 700,
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
-              color: layer.accentColor,
+              color: layer.textColor,
             }}>
               {layer.level}
             </span>
             <span style={{
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-xs)',
-              color: '#000000',
+              color: 'rgba(0,0,0,0.65)',
               letterSpacing: '0.06em',
             }}>
               {layer.subtitle}
@@ -170,10 +169,11 @@ export default function ScheinSection({ onLevelChange }) {
       </div>
 
       {/* Stacked layers */}
-      {layers.map(layer => (
+      {layers.map((layer, i) => (
         <ScheinLayer
           key={layer.id}
           layer={layer}
+          isFirst={i === 0}
           isOpen={openLayer === layer.id}
           onToggle={() => toggle(layer.id)}
           onActive={handleActive}

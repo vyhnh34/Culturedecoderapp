@@ -43,7 +43,7 @@ export default function EspousedValues() {
         {/* Header row */}
         <div style={{
           padding: '12px 20px',
-          backgroundColor: 'var(--color-earth)',
+          backgroundColor: 'var(--color-sand)',
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--text-xs)',
           fontWeight: 700,
@@ -55,7 +55,7 @@ export default function EspousedValues() {
         </div>
         <div style={{
           padding: '12px 20px',
-          backgroundColor: 'var(--color-earth)',
+          backgroundColor: 'var(--color-sand)',
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--text-xs)',
           fontWeight: 700,
@@ -71,7 +71,7 @@ export default function EspousedValues() {
           <div key={v.id} style={{ display: 'contents' }} role="row">
             <div style={{
               padding: '20px',
-              backgroundColor: i % 2 === 0 ? 'var(--color-white)' : '#faf9f6',
+              backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#faf9f6',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
@@ -82,7 +82,7 @@ export default function EspousedValues() {
             </div>
             <div style={{
               padding: '20px',
-              backgroundColor: i % 2 === 0 ? 'var(--color-white)' : '#faf9f6',
+              backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#faf9f6',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
@@ -107,8 +107,8 @@ export default function EspousedValues() {
         borderRadius: 'var(--radius)',
       }}>
         <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'var(--text-sm)',
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--text-base)',
           lineHeight: 'var(--leading-base)',
           color: '#000000',
           marginBottom: '8px',

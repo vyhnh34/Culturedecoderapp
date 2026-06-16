@@ -23,11 +23,12 @@ function AssumptionCard({ assumption }) {
 
       {/* Toggle */}
       <div style={{
-        display: 'flex',
-        gap: '0',
+        display: 'inline-flex',
+        gap: '4px',
         marginBottom: '24px',
-        borderRadius: 'var(--radius)',
-        overflow: 'hidden',
+        padding: '4px',
+        backgroundColor: 'rgba(0,0,0,0.07)',
+        borderRadius: '999px',
         width: 'fit-content',
       }} role="group" aria-label="Toggle view">
         {[
@@ -42,13 +43,14 @@ function AssumptionCard({ assumption }) {
               padding: '8px 16px',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-xs)',
-              fontWeight: 600,
+              fontWeight: 700,
               letterSpacing: '0.05em',
               cursor: 'pointer',
               border: 'none',
               whiteSpace: 'nowrap',
-              backgroundColor: view === tab.key ? 'var(--color-river)' : 'transparent',
-              color: '#000000',
+              backgroundColor: view === tab.key ? '#000000' : 'transparent',
+              color: view === tab.key ? '#FFFFFF' : 'rgba(0,0,0,0.6)',
+              boxShadow: view === tab.key ? '0 2px 6px rgba(0,0,0,0.25)' : 'none',
               transition: 'background-color 200ms ease, color 200ms ease, transform 150ms ease',
               borderRadius: '999px',
             }}
@@ -69,7 +71,8 @@ function AssumptionCard({ assumption }) {
         {(isEvidence ? assumption.challenges : assumption.supports).map((point, i) => (
           <div key={i} style={{
             padding: '16px 20px',
-            backgroundColor: '#000000',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(0,0,0,0.12)',
             borderRadius: 'var(--radius)',
             transition: 'opacity 200ms ease',
           }}>
@@ -77,7 +80,7 @@ function AssumptionCard({ assumption }) {
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               lineHeight: 'var(--leading-sm)',
-              color: '#FAF7E9',
+              color: '#000000',
             }}>
               {point}
             </p>
