@@ -92,8 +92,8 @@ export default function GoffeeJonesGrid() {
   // SVG grid is 400×400 viewBox
   // X axis: sociability (left=low, right=high) → map 0–10 to 0–400
   // Y axis: solidarity (bottom=low, top=high) → map 0–10 to 400–0
-  // LEFT = high sociability, so invert X
-  const toSvgX = (s) => (1 - s / 10) * 400;
+  // RIGHT = high sociability
+  const toSvgX = (s) => (s / 10) * 400;
   const toSvgY = (s) => (1 - s / 10) * 400;
 
   const dotX = toSvgX(plotPos.sociability);
@@ -122,30 +122,30 @@ export default function GoffeeJonesGrid() {
             role="img"
           >
             {/* Background quadrants */}
-            <rect x="0" y="0" width="200" height="200" fill="rgba(255,255,255,0.12)" />
-            <rect x="200" y="0" width="200" height="200" fill="rgba(255,255,255,0.04)" />
-            <rect x="0" y="200" width="200" height="200" fill="rgba(255,255,255,0.04)" />
-            <rect x="200" y="200" width="200" height="200" fill="rgba(0,0,0,0.06)" />
+            <rect x="0" y="0" width="200" height="200" fill="rgba(255,255,255,0.04)" />
+            <rect x="200" y="0" width="200" height="200" fill="rgba(255,255,255,0.12)" />
+            <rect x="0" y="200" width="200" height="200" fill="rgba(0,0,0,0.06)" />
+            <rect x="200" y="200" width="200" height="200" fill="rgba(255,255,255,0.04)" />
 
             {/* Axes */}
             <line x1="200" y1="0" x2="200" y2="400" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
             <line x1="0" y1="200" x2="400" y2="200" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
 
             {/* Axis labels */}
-            <text x="8" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="start" fontWeight="600">HIGH</text>
+            <text x="8" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="start" fontWeight="600">LOW</text>
             <text x="8" y="208" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="start" fontWeight="600">SOCIABILITY</text>
-            <text x="370" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="end" fontWeight="600">LOW</text>
+            <text x="370" y="196" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="end" fontWeight="600">HIGH</text>
             <text x="370" y="208" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="end" fontWeight="600">SOCIABILITY</text>
             <text x="200" y="13" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="middle" fontWeight="600">HIGH SOLIDARITY</text>
             <text x="200" y="397" fontFamily="var(--font-body)" fontSize="9" fill="#FFFFFF" textAnchor="middle" fontWeight="600">LOW SOLIDARITY</text>
 
-            {/* Quadrant labels — HIGH sociability = LEFT */}
-            <text x="100" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="800" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">COMMUNAL</text>
-            <text x="300" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">MERCENARY</text>
-            <text x="100" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">NETWORKED</text>
-            <text x="300" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">FRAGMENTED</text>
+            {/* Quadrant labels — HIGH sociability = RIGHT */}
+            <text x="100" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">MERCENARY</text>
+            <text x="300" y="40" fontFamily="var(--font-body)" fontSize="11" fontWeight="800" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">COMMUNAL</text>
+            <text x="100" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">FRAGMENTED</text>
+            <text x="300" y="388" fontFamily="var(--font-body)" fontSize="11" fontWeight="700" fill="#FFFFFF" textAnchor="middle" letterSpacing="1">NETWORKED</text>
 
-            {/* Drift arrow */}
+            {/* Original (2022) position marker + connecting line */}
             {drifted && (
               <>
                 <line
@@ -153,27 +153,38 @@ export default function GoffeeJonesGrid() {
                   y1={toSvgY(NORMAL.solidarity)}
                   x2={dotX}
                   y2={dotY}
-                  stroke="var(--color-rust)"
+                  stroke="rgba(255,255,255,0.85)"
                   strokeWidth="1.5"
-                  strokeDasharray="4 3"
-                  opacity="0.7"
+                  strokeDasharray="3 3"
+                />
+                <circle
+                  cx={toSvgX(NORMAL.sociability)}
+                  cy={toSvgY(NORMAL.solidarity)}
+                  r="7"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.85)"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 2"
                 />
                 <text
-                  x={dotX + 14}
-                  y={dotY - 8}
+                  x={toSvgX(NORMAL.sociability)}
+                  y={toSvgY(NORMAL.solidarity) - 14}
                   fontFamily="var(--font-body)"
                   fontSize="9"
-                  fill="var(--color-rust)"
+                  fontWeight="700"
+                  fill="#FFFFFF"
+                  textAnchor="middle"
                 >
-                  Post-restructuring drift
+                  2022
                 </text>
               </>
             )}
 
             {/* Patagonia dot */}
             <g
+              className="patagonia-dot"
               transform={`translate(${dotX}, ${dotY})`}
-              style={{ transition: 'transform 600ms ease', cursor: 'pointer' }}
+              style={{ transition: 'transform 600ms ease', cursor: 'pointer', outline: 'none' }}
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
               role="button"
@@ -185,6 +196,7 @@ export default function GoffeeJonesGrid() {
               <circle
                 r="12"
                 fill="rgba(255,255,255,0.2)"
+                className="patagonia-dot-ring"
               />
               <circle
                 r="7"
@@ -199,7 +211,7 @@ export default function GoffeeJonesGrid() {
                 fill="#FFFFFF"
                 textAnchor="start"
               >
-                PATAGONIA
+                PATAGONIA{drifted ? ' · 2024' : ''}
               </text>
             </g>
           </svg>
@@ -212,7 +224,7 @@ export default function GoffeeJonesGrid() {
               left: '50%',
               transform: 'translateX(-50%)',
               marginTop: '-140px',
-              backgroundColor: 'var(--color-earth)',
+              backgroundColor: 'rgba(0,0,0,0.88)',
               border: '1px solid rgba(255,255,255,0.15)',
               borderRadius: 'var(--radius)',
               padding: '16px 20px',
@@ -220,10 +232,10 @@ export default function GoffeeJonesGrid() {
               zIndex: 10,
               pointerEvents: 'none',
             }} role="tooltip">
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-xs)', fontWeight: 700, color: 'var(--color-sky)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-xs)', fontWeight: 700, color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>
                 Patagonia · Communal
               </p>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: 'var(--color-glacier)', lineHeight: 'var(--leading-sm)' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: '#FFFFFF', lineHeight: 'var(--leading-sm)' }}>
                 Sociability: 7.5/10 — shared outdoor identity and genuine care.<br />
                 Solidarity: 8.0/10 — mission legally embedded; all-hands activism.
               </p>
@@ -239,19 +251,19 @@ export default function GoffeeJonesGrid() {
               padding: '12px 28px',
               border: '2px solid rgba(255,255,255,0.5)',
               borderRadius: '999px',
-              backgroundColor: drifted ? 'rgba(181,73,10,0.85)' : 'transparent',
+              backgroundColor: drifted ? '#FFFFFF' : 'transparent',
               fontFamily: 'var(--font-body)',
               fontSize: 'var(--text-sm)',
               fontWeight: 700,
               letterSpacing: '0.04em',
-              color: '#FFFFFF',
+              color: drifted ? 'var(--color-blue)' : '#FFFFFF',
               cursor: 'pointer',
               transition: 'all 200ms ease',
             }}
-            onMouseEnter={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'scale(1.03)'; }}
-            onMouseLeave={e => { if (!drifted) e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.transform = 'scale(1)'; }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
           >
-            {drifted ? '← Show original position' : 'Show what changed (2024) →'}
+            {drifted ? '← Show original position' : 'Compare 2022 vs. 2024 →'}
           </button>
         </div>
 
@@ -263,7 +275,7 @@ export default function GoffeeJonesGrid() {
             borderRadius: 'var(--radius)',
             marginBottom: '48px',
           }}>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: '#000000' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-base)', color: '#000000' }}>
               June–Sept 2024 layoffs strain solidarity. Reputation rank: #1 → #8 (Harris Poll).
             </p>
           </div>
@@ -371,6 +383,15 @@ export default function GoffeeJonesGrid() {
           </div>
         </details>
       </div>
+
+      <style>{`
+        .patagonia-dot { outline: none; }
+        .patagonia-dot:focus-visible .patagonia-dot-ring {
+          fill: rgba(255,255,255,0.35);
+          stroke: #FFFFFF;
+          stroke-width: 2;
+        }
+      `}</style>
     </section>
   );
 }
