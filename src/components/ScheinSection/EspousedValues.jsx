@@ -1,15 +1,31 @@
+import { useRef, useEffect } from 'react';
 import { espousedValues, espousedTension } from '../../data/espousedValues';
 import EvidenceTag from '../shared/EvidenceTag';
 
 function ValuesTicker() {
+  const trackRef = useRef(null);
   const items = [...espousedValues, ...espousedValues];
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const pause = () => { el.style.animationPlayState = 'paused'; };
+    const resume = () => { el.style.animationPlayState = 'running'; };
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', resume, { passive: true });
+    return () => {
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('touchend', resume);
+    };
+  }, []);
+
   return (
     <div style={{
       overflow: 'hidden',
       padding: '16px 0',
       marginBottom: '48px',
     }}>
-      <div className="ticker-track">
+      <div ref={trackRef} className="ticker-track">
         {items.map((v, i) => (
           <span key={`${v.id}-${i}`} style={{
             fontFamily: 'var(--font-display)',

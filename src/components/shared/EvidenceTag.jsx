@@ -10,18 +10,31 @@ const tagStyles = {
 export default function EvidenceTag({ source }) {
   const style = tagStyles[source] || { bg: 'var(--color-glacier)', color: 'var(--color-earth)' };
   return (
-    <span style={{
-      display: 'inline-block',
-      padding: '2px 8px',
-      borderRadius: 'var(--radius)',
-      fontSize: 'var(--text-xs)',
-      fontFamily: 'var(--font-mono)',
-      fontWeight: 600,
-      letterSpacing: '0.04em',
-      backgroundColor: style.bg,
-      color: style.color,
-      border: `1px solid ${style.color}33`,
-    }}>
+    <span
+      title={source}
+      style={{
+        display: 'inline-block',
+        padding: '2px 8px',
+        borderRadius: 'var(--radius)',
+        fontSize: 'var(--text-xs)',
+        fontFamily: 'var(--font-mono)',
+        fontWeight: 600,
+        letterSpacing: '0.04em',
+        backgroundColor: style.bg,
+        color: style.color,
+        border: `1px solid ${style.color}33`,
+        cursor: 'default',
+        transition: 'transform 150ms ease, box-shadow 150ms ease',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'scale(1.08)';
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.12)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
       {source}
     </span>
   );

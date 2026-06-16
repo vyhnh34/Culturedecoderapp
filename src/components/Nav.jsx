@@ -11,6 +11,9 @@ const navLinks = [
 export default function Nav({ activeSection }) {
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const listRef = useRef(null);
+  const linkRefs = useRef([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,6 +30,23 @@ export default function Nav({ activeSection }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    const activeIndex = navLinks.findIndex(l => l.href.slice(1) === activeSection);
+    if (activeIndex < 0 || !linkRefs.current[activeIndex] || !listRef.current) {
+      setIndicatorStyle(s => ({ ...s, opacity: 0 }));
+      return;
+    }
+    const linkEl = linkRefs.current[activeIndex];
+    const listEl = listRef.current;
+    const listRect = listEl.getBoundingClientRect();
+    const linkRect = linkEl.getBoundingClientRect();
+    setIndicatorStyle({
+      left: linkRect.left - listRect.left,
+      width: linkRect.width - 28,
+      opacity: 1,
+    });
+  }, [activeSection]);
 
   const handleLinkClick = (e, href) => {
     e.preventDefault();
@@ -71,14 +91,18 @@ export default function Nav({ activeSection }) {
           Patagonia&nbsp;·&nbsp;Culture&nbsp;Profile
         </a>
 
-        {/* Row 2 — nav links */}
-        <ul style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0, overflowX: 'auto' }}>
-          {navLinks.map(link => {
+        {/* Row 2 — nav links with sliding indicator */}
+        <ul
+          ref={listRef}
+          style={{ position: 'relative', display: 'flex', listStyle: 'none', margin: 0, padding: 0, overflowX: 'auto' }}
+        >
+          {navLinks.map((link, i) => {
             const sectionId = link.href.slice(1);
             const isActive = activeSection === sectionId;
             return (
               <li key={link.href} style={{ flexShrink: 0 }}>
                 <a
+                  ref={el => linkRefs.current[i] = el}
                   href={link.href}
                   onClick={e => handleLinkClick(e, link.href)}
                   aria-current={isActive ? 'page' : undefined}
@@ -92,7 +116,7 @@ export default function Nav({ activeSection }) {
                     letterSpacing: '0.02em',
                     color: isActive ? '#000000' : '#888888',
                     textDecoration: 'none',
-                    borderBottom: isActive ? '2px solid #000000' : '2px solid transparent',
+                    transition: 'color 300ms ease, font-weight 0ms',
                   }}
                 >
                   {link.label}
@@ -100,6 +124,21 @@ export default function Nav({ activeSection }) {
               </li>
             );
           })}
+          {/* Sliding underline */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: `${indicatorStyle.left}px`,
+              width: `${indicatorStyle.width}px`,
+              height: '2px',
+              backgroundColor: '#000000',
+              opacity: indicatorStyle.opacity,
+              transition: 'left 300ms ease, width 300ms ease, opacity 200ms ease',
+              pointerEvents: 'none',
+            }}
+          />
         </ul>
       </div>
     </nav>
