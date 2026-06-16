@@ -22,8 +22,8 @@ export default function TensionsSection() {
           gridTemplateColumns: 'repeat(auto-fill, minmax(460px, 1fr))',
           gap: '20px',
         }}>
-          {tensionCards.map(card => (
-            <TensionCard key={card.id} card={card} />
+          {tensionCards.map((card, i) => (
+            <TensionCard key={card.id} card={card} popDelay={i * 80} />
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
@@ -7,10 +7,24 @@ import GoffeeJonesGrid from './components/GoffeeJones/GoffeeJonesGrid';
 import MaturitySection from './components/DesignMaturity/MaturitySection';
 import TensionsSection from './components/Tensions/TensionsSection';
 import SourcesSection from './components/SourcesIndex/SourcesSection';
+import DepthIndicator from './components/shared/DepthIndicator';
+import LoadingScreen from './components/LoadingScreen';
+
 const sectionIds = ['hero', 'schein', 'goffee-jones', 'design-maturity', 'tensions', 'sources'];
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
+  const [activeScheinLevel, setActiveScheinLevel] = useState('artifacts');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const handleLoadingComplete = useCallback(() => setLoading(false), []);
+
+  // Re-show loading screen when browser restores page from bfcache (back-forward cache)
+  useEffect(() => {
+    const onPageShow = (e) => { if (e.persisted) setLoading(true); };
+    window.addEventListener('pageshow', onPageShow);
+    return () => window.removeEventListener('pageshow', onPageShow);
+  }, []);
 
   useEffect(() => {
     const observers = sectionIds.map(id => {
@@ -29,12 +43,37 @@ export default function App() {
     return () => observers.forEach(obs => obs?.disconnect());
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      setScrollProgress(total > 0 ? window.scrollY / total : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
+      {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '3px',
+          width: `${scrollProgress * 100}%`,
+          backgroundColor: 'var(--color-river)',
+          zIndex: 100,
+          pointerEvents: 'none',
+          transition: 'width 80ms linear',
+        }}
+      />
       <Nav activeSection={activeSection} />
+      <DepthIndicator activeScheinLevel={activeScheinLevel} />
       <main>
         <Hero />
-        <ScheinSection onLevelChange={() => {}} />
+        <ScheinSection onLevelChange={setActiveScheinLevel} />
         <GoffeeJonesGrid />
         <MaturitySection />
         <TensionsSection />

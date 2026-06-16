@@ -86,6 +86,7 @@ export default function GoffeeJonesGrid() {
   const [drifted, setDrifted] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [activeQuadrant, setActiveQuadrant] = useState(null);
+  const [pulsed, setPulsed] = useState(false);
 
   const plotPos = drifted ? DRIFTED : NORMAL;
 
@@ -185,7 +186,7 @@ export default function GoffeeJonesGrid() {
               className="patagonia-dot"
               transform={`translate(${dotX}, ${dotY})`}
               style={{ transition: 'transform 600ms ease', cursor: 'pointer', outline: 'none' }}
-              onMouseEnter={() => setHovering(true)}
+              onMouseEnter={() => { setHovering(true); setPulsed(true); }}
               onMouseLeave={() => setHovering(false)}
               role="button"
               tabIndex={0}
@@ -193,6 +194,15 @@ export default function GoffeeJonesGrid() {
               onFocus={() => setHovering(true)}
               onBlur={() => setHovering(false)}
             >
+              {!pulsed && (
+                <circle
+                  r="10"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.7)"
+                  strokeWidth="1.5"
+                  className="dot-pulse-ring"
+                />
+              )}
               <circle
                 r="12"
                 fill="rgba(255,255,255,0.2)"
@@ -390,6 +400,19 @@ export default function GoffeeJonesGrid() {
           fill: rgba(255,255,255,0.35);
           stroke: #FFFFFF;
           stroke-width: 2;
+        }
+        @keyframes dot-pulse {
+          0% { transform: scale(1); opacity: 0.7; }
+          80% { transform: scale(2.4); opacity: 0; }
+          100% { transform: scale(2.4); opacity: 0; }
+        }
+        .dot-pulse-ring {
+          animation: dot-pulse 2s ease-out infinite;
+          transform-box: fill-box;
+          transform-origin: center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .dot-pulse-ring { animation: none; }
         }
       `}</style>
     </section>

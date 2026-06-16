@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from 'react';
 import {
   RadarChart,
   PolarGrid,
@@ -8,7 +9,7 @@ import {
 import SectionHeader from '../shared/SectionHeader';
 import { maturityDimensions, overallScore, overallLabel, overallSubLabel, contextualNote } from '../../data/maturityDimensions';
 
-function ScoreBar({ score }) {
+function ScoreBar({ score, animated }) {
   return (
     <div style={{ position: 'relative', height: '4px', backgroundColor: 'rgba(0,0,0,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
       <div style={{
@@ -16,22 +17,45 @@ function ScoreBar({ score }) {
         left: 0,
         top: 0,
         height: '100%',
-        width: `${(score / 5) * 100}%`,
+        width: animated ? `${(score / 5) * 100}%` : '0%',
         backgroundColor: 'var(--color-green)',
         borderRadius: '2px',
+        transition: 'width 800ms ease',
       }} />
     </div>
   );
 }
 
-function DimensionRow({ dim }) {
+function DimensionRow({ dim, hovered, onHover, onLeave }) {
+  const rowRef = useRef(null);
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setAnimated(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div style={{
-      padding: '20px 24px',
-      marginBottom: '16px',
-      backgroundColor: '#FFFFFF',
-      borderRadius: 'var(--radius)',
-    }}>
+    <div
+      ref={rowRef}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      style={{
+        padding: '20px 24px',
+        marginBottom: '16px',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 'var(--radius)',
+        border: hovered ? '1.5px solid var(--color-green)' : '1.5px solid transparent',
+        boxShadow: hovered ? '0 4px 16px rgba(0,0,0,0.1)' : 'none',
+        transition: 'border-color 200ms ease, box-shadow 200ms ease',
+      }}
+    >
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -58,7 +82,7 @@ function DimensionRow({ dim }) {
           <span style={{ fontSize: 'var(--text-xs)', color: 'rgba(0,0,0,0.6)', fontWeight: 500 }}>/5</span>
         </span>
       </div>
-      <ScoreBar score={dim.score} />
+      <ScoreBar score={dim.score} animated={animated} />
       <p style={{
         fontFamily: 'var(--font-body)',
         fontSize: 'var(--text-sm)',
@@ -79,6 +103,8 @@ const radarData = maturityDimensions.map(d => ({
 }));
 
 export default function MaturitySection() {
+  const [hoveredDim, setHoveredDim] = useState(null);
+
   return (
     <section id="design-maturity" style={{ backgroundColor: 'var(--color-green)', color: '#FFFFFF' }}>
       <div className="max-w-content" style={{ paddingTop: '64px', paddingBottom: '40px' }}>
@@ -179,7 +205,13 @@ export default function MaturitySection() {
           {/* Dimension rows */}
           <div>
             {maturityDimensions.map(dim => (
-              <DimensionRow key={dim.id} dim={dim} />
+              <DimensionRow
+                key={dim.id}
+                dim={dim}
+                hovered={hoveredDim === dim.id}
+                onHover={() => setHoveredDim(dim.id)}
+                onLeave={() => setHoveredDim(null)}
+              />
             ))}
 
             {/* Contextual note */}
@@ -210,7 +242,7 @@ export default function MaturitySection() {
                 <span style={{ fontFamily: 'var(--font-body)', fontSize: 'var(--text-sm)', color: '#000000', fontWeight: 600 }}>{d.dimension}</span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'var(--text-sm)', color: '#000000' }}>{d.score}/5</span>
               </div>
-              <ScoreBar score={d.score} />
+              <ScoreBar score={d.score} animated={true} />
             </div>
           ))}
         </div>

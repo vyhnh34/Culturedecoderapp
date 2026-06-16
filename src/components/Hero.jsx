@@ -1,14 +1,33 @@
 import { useState, useEffect } from 'react';
 
 const stats = [
-  { value: 4, suffix: '%', label: 'employee turnover', context: 'vs 57% US avg' },
-  { value: 180, prefix: '$', suffix: 'M', label: 'donated to Holdfast', context: 'since 2022' },
-  { value: 4.4, suffix: '/5', label: 'culture & values', context: 'Glassdoor rating' },
+  { value: 4, suffix: '%', label: 'employee turnover', context: 'vs 57% US avg', decimals: 0 },
+  { value: 180, prefix: '$', suffix: 'M', label: 'donated to Holdfast', context: 'since 2022', decimals: 0 },
+  { value: 4.4, suffix: '/5', label: 'culture & values', context: 'Glassdoor rating', decimals: 1 },
 ];
 
 const frameworks = ['SCHEIN', 'GOFFEE & JONES', 'DESIGN MATURITY'];
 
-function StatPill({ stat }) {
+function StatPill({ stat, animate }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!animate) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) { setDisplayValue(stat.value); return; }
+
+    const duration = 1200;
+    const startTime = performance.now();
+    const tick = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(parseFloat((eased * stat.value).toFixed(stat.decimals)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [animate, stat.value, stat.decimals]);
+
   return (
     <div style={{
       padding: '28px 32px',
@@ -26,7 +45,7 @@ function StatPill({ stat }) {
         letterSpacing: '-0.03em',
         marginBottom: '8px',
       }}>
-        {stat.prefix || ''}{stat.value}{stat.suffix}
+        {stat.prefix || ''}{displayValue}{stat.suffix}
       </div>
       <div style={{
         fontFamily: 'var(--font-body)',
@@ -51,6 +70,7 @@ function StatPill({ stat }) {
 
 export default function Hero() {
   const [frameworksVisible, setFrameworksVisible] = useState([false, false, false]);
+  const [statsAnimating, setStatsAnimating] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -64,7 +84,8 @@ export default function Hero() {
         }, 800 + i * 280);
       });
     }, 300);
-    return () => clearTimeout(t);
+    const t2 = setTimeout(() => setStatsAnimating(true), 1400);
+    return () => { clearTimeout(t); clearTimeout(t2); };
   }, []);
 
   const scrollDown = () => {
@@ -171,7 +192,7 @@ export default function Hero() {
         }} role="list" aria-label="Key statistics">
           {stats.map(stat => (
             <div key={stat.label} role="listitem" style={{ flex: '1 1 160px' }}>
-              <StatPill stat={stat} />
+              <StatPill stat={stat} animate={statsAnimating} />
             </div>
           ))}
         </div>

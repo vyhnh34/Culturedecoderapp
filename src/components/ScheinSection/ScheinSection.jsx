@@ -1,9 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from '../shared/SectionHeader';
 import ArtifactCard from './ArtifactCard';
 import EspousedValues from './EspousedValues';
 import TacitAssumptions from './TacitAssumptions';
 import { artifacts } from '../../data/artifacts';
+
+const cardContainerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+};
+
+const cardItemVariants = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: 'easeOut' } },
+};
 
 const layers = [
   {
@@ -179,14 +190,23 @@ export default function ScheinSection({ onLevelChange }) {
           onActive={handleActive}
         >
           {layer.id === 'artifacts' && (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '16px',
-              marginTop: '32px',
-            }}>
-              {artifacts.map(a => <ArtifactCard key={a.id} artifact={a} />)}
-            </div>
+            <motion.div
+              variants={cardContainerVariants}
+              initial="hidden"
+              animate={openLayer === 'artifacts' ? 'show' : 'hidden'}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: '16px',
+                marginTop: '32px',
+              }}
+            >
+              {artifacts.map(a => (
+                <motion.div key={a.id} variants={cardItemVariants}>
+                  <ArtifactCard artifact={a} />
+                </motion.div>
+              ))}
+            </motion.div>
           )}
           {layer.id === 'espoused' && <EspousedValues />}
           {layer.id === 'tacit' && <TacitAssumptions />}

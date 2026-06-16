@@ -1,9 +1,19 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { tacitAssumptions } from '../../data/tacitAssumptions';
 
 function AssumptionCard({ assumption }) {
   const [view, setView] = useState('belief');
+  const [contentVisible, setContentVisible] = useState(true);
   const isEvidence = view === 'evidence';
+
+  const handleViewChange = useCallback((newView) => {
+    if (newView === view) return;
+    setContentVisible(false);
+    setTimeout(() => {
+      setView(newView);
+      setContentVisible(true);
+    }, 150);
+  }, [view]);
 
   return (
     <article style={{
@@ -37,7 +47,7 @@ function AssumptionCard({ assumption }) {
         ].map(tab => (
           <button
             key={tab.key}
-            onClick={() => setView(tab.key)}
+            onClick={() => handleViewChange(tab.key)}
             aria-pressed={view === tab.key}
             style={{
               padding: '8px 16px',
@@ -67,6 +77,9 @@ function AssumptionCard({ assumption }) {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gap: '16px',
+        opacity: contentVisible ? 1 : 0,
+        transform: contentVisible ? 'translateY(0)' : 'translateY(6px)',
+        transition: 'opacity 150ms ease, transform 150ms ease',
       }}>
         {(isEvidence ? assumption.challenges : assumption.supports).map((point, i) => (
           <div key={i} style={{

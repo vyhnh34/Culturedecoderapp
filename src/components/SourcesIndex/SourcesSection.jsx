@@ -99,6 +99,18 @@ export default function SourcesSection() {
           )}
         </div>
 
+        {activeFilters.length > 0 && (
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-xs)',
+            color: 'rgba(0,0,0,0.55)',
+            marginBottom: '16px',
+            marginTop: '-16px',
+          }}>
+            Showing {filtered.length} of {sources.length} sources
+          </p>
+        )}
+
         {/* Table */}
         <div style={{ overflowX: 'auto' }}>
           <table style={{

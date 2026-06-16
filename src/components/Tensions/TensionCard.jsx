@@ -1,33 +1,49 @@
 import { useRef, useEffect, useState } from 'react';
 
-export default function TensionCard({ card }) {
+export default function TensionCard({ card, popDelay = 0 }) {
   const barRef = useRef(null);
+  const cardRef = useRef(null);
   const [animated, setAnimated] = useState(false);
+  const [popped, setPopped] = useState(false);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const el = barRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !animated) {
-          setAnimated(true);
-          observer.disconnect();
-        }
-      },
+      ([entry]) => setAnimated(entry.isIntersecting),
       { threshold: 0.4 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [animated]);
+  }, []);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setPopped(true), popDelay);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [popDelay]);
 
   return (
-    <article style={{
-      borderRadius: 'var(--radius)',
-      backgroundColor: '#FFFFFF',
-      overflow: 'hidden',
-    }}>
+    <article
+      ref={cardRef}
+      style={{
+        borderRadius: 'var(--radius)',
+        backgroundColor: '#FFFFFF',
+        overflow: 'hidden',
+        opacity: popped ? 1 : 0,
+        transform: popped ? 'scale(1) translateY(0)' : 'scale(0.97) translateY(16px)',
+        transition: 'opacity 400ms cubic-bezier(0.34, 1.56, 0.64, 1), transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+      }}>
       {/* Card header */}
       <div style={{
         padding: '18px 24px 14px',
